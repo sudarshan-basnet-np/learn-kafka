@@ -22,7 +22,7 @@ public class KafkaMessagePublisher {
 
 
     public void sendMessage(String message) {
-        CompletableFuture<SendResult<String, Object>> future = this.kafkaTemplate.send("message", message);
+        CompletableFuture<SendResult<String, Object>> future = this.kafkaTemplate.send("new_topic_1", message);
         future.whenComplete((result, exception) -> {
             if (exception == null) {
                 log.info(" Sent message [ {} ] with offset [ {} ]", message, result.getRecordMetadata().offset());

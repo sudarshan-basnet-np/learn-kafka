@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/producer-app")
 public class EventController {
 
-    private final KafkaMessagePublisher  kafkaMessagePublisher;
+    private final KafkaMessagePublisher kafkaMessagePublisher;
 
     public EventController(KafkaMessagePublisher kafkaMessagePublisher) {
         this.kafkaMessagePublisher = kafkaMessagePublisher;
@@ -19,9 +19,9 @@ public class EventController {
 
     @GetMapping("/publish/{message}")
     public ResponseEntity<String> sendMessage(@PathVariable String message) {
-        try{
-            for(int i = 0; i < 100000 ; i++) {
-                kafkaMessagePublisher.sendMessage(message);
+        try {
+            for (int i = 0; i < 10_000; i++) {
+                kafkaMessagePublisher.sendMessage(message + " : " + i);
             }
             return ResponseEntity.ok().body("Successfully publish  message");
         } catch (Exception ex) {
