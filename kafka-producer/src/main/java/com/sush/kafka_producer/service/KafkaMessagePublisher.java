@@ -1,5 +1,6 @@
 package com.sush.kafka_producer.service;
 
+import com.sush.kafka_producer.dto.Customer;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,17 @@ public class KafkaMessagePublisher {
         future.whenComplete((result, exception) -> {
             if (exception == null) {
                 log.info(" Sent message [ {} ] with offset [ {} ]", message, result.getRecordMetadata().offset());
+            } else  {
+                log.error("Unable to send message due to[ {} ]", exception.getMessage());
+            }
+        });
+    }
+
+    public void sendMessage(Customer customer) {
+        CompletableFuture<SendResult<String, Object>> future = this.kafkaTemplate.send("topic_with_object", customer);
+        future.whenComplete((result, exception) -> {
+            if (exception == null) {
+                log.info(" Sent message [ {} ] with offset [ {} ]", customer.toString(), result.getRecordMetadata().offset());
             } else  {
                 log.error("Unable to send message due to[ {} ]", exception.getMessage());
             }
