@@ -1,2 +1,13 @@
-@message = variable value
-GET http://localhost:8080/api/v1/producer-app/publish/{{message}}
+#@message = variable value
+#GET http://localhost:8080/api/v1/producer-app/publish/{{message}}
+
+
+POST http://localhost:8080/api/v1/producer-app/publish/json
+Content-Type: application/json
+
+{
+  "customerId": "1",
+  "customerName": "ram",
+  "customerAddress": "ktm",
+  "customerEmail": "hello@gmail.com"
+}

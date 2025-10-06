@@ -1,6 +1,8 @@
 package com.sush.kafka_consumer.dto;
 
-public class Customer {
+import java.io.Serializable;
+
+public class Customer implements Serializable {
 
     private String  customerId;
     private String customerName;
